@@ -1,6 +1,9 @@
 #include <iostream>
 #include "math/mobius.hpp"
 
+/**
+ * For more information about mobius, read papers/MOBIUS.pdf with great insight about this problem.
+ **/
 int main()
 {
     const int64_t MAXN = 1125899906842624L;
