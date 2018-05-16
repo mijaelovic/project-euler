@@ -57,8 +57,6 @@ public:
         {
             a.push_back(carry);
         }
-        while (a.size() > 0 && a.back() == 0)
-            a.pop_back();
         return *this;
     }
     const bigint_t operator + (const bigint_t& rhs) const 
@@ -86,9 +84,9 @@ public:
         }
         if (carry)
         {
-            for (int i=0; i<a.size(); ++i)
-                a[i] = (BASE - a[i]);
             sign = !sign;
+            for (int i=0; i<a.size(); ++i)
+                a[i] = BASE - a[i];
         }
         while (a.size() > 0 && a.back() == 0)
             a.pop_back();
@@ -105,27 +103,21 @@ public:
     {
         sign &= rhs.sign;
 
-        std::vector<int64_t> c(a.size() + rhs.a.size(), 0);
+        std::vector<int64_t> temp(a.size() + rhs.a.size() - 1, 0);
         for (size_t i=0; i<a.size(); ++i)
             for (size_t j=0; j<rhs.a.size(); ++j)
-                c[i + j] += ((int64_t) a[i]) * rhs.a[j];
-        a.clear();
+                temp[i + j] += ((int64_t) a[i]) * rhs.a[j];
+
+        a.resize(temp.size(), 0);
         int64_t carry = 0;
-        for (size_t i=0; i<c.size(); ++i) 
+        for (size_t i=0; i<temp.size(); ++i) 
         {
-            carry += c[i];
-            a.push_back(carry % BASE);
+            carry += temp[i];
+            a[i] = carry % BASE;
             carry /= BASE;
         }
         for (; carry > 0; carry /= BASE)
             a.push_back(carry % BASE);
-        while (a.size() > 0 && a.back() == 0)
-            a.pop_back();
-        return *this; 
-    }
-    bigint_t& operator *= (const int64_t rhs)
-    {
-        *this *= bigint_t(rhs);
         return *this;
     }
     const bigint_t operator * (const bigint_t& rhs) const {
@@ -133,7 +125,8 @@ public:
         result *= rhs;
         return result;
     }
-    
+
+    // Division 
     bigint_t& operator /= (const uint32_t rhs)
     {
         uint32_t carry = 0;
@@ -143,7 +136,7 @@ public:
             a[i] = value / rhs;
             carry = value % rhs;
         }
-        while (a.back() == 0)
+        while (a.size() > 0 && a.back() == 0)
             a.pop_back();
         return *this;
     }
