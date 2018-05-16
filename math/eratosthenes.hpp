@@ -5,9 +5,13 @@
 
 /**
  * Eratosthenes sieve.
- * The famous eratosthenes sieve. It offers two constructor:
- * 1. N, sieve from 1 to N both inclusive of prime numbers. Complexity O(n log n log n)
- * 2. MINN, MAXN: Segmented sieve from MINN to MAXN both inclusive of prime numbers.
+ * Sieve of Eratosthenes is a simple and ancient algorithm used to find the prime numbers up to any given limit. 
+ * It is one of the most efficient ways to find small prime numbers.
+ * For a given upper limit  the algorithm works by iteratively marking the multiples of primes as composite, starting from 2. 
+ * Once all multiples of 2 have been marked composite, the muliples of next prime, ie 3 are marked composite. 
+ * This process continues until p <= sqrt(N)  where p is a prime number.
+ * 
+ * This implementation offers the traditional sieve in O(N log N log N) and the segmented sieve in O(sqrt(N)).
  **/
 class Eratosthenes {
 private:

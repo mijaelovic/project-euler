@@ -6,7 +6,12 @@
 #include "mobius.hpp"
 
 /**
- * Mertens is nothing but the sum of Mobius function.
+ * Mertens function is the cumulative function of Mobius:
+ *  M(x) = \sum_{i = 1}^{x} μ(i)
+ * By applying the Mobius inversion formula we can get a recursion for the Mertens function:
+ *  M(x) = 1 - \sum{d >= 2} M(x/d)
+ * Here, an important observation is that having all values M(x/d) for d >= 2, we are able to calculate M(x) in time O(Sqrt(x)). 
+ * This is because there are at most 2 sqrt(x) different integers of the form ceil(x/d), since x/d < sqrt(x) for d > sqrt(x).
  **/
 class Mertens {
 private:
