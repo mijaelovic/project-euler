@@ -120,7 +120,8 @@ public:
             a.push_back(carry % BASE);
         return *this;
     }
-    const bigint_t operator * (const bigint_t& rhs) const {
+    const bigint_t operator * (const bigint_t& rhs) const 
+    {
         bigint_t result = *this;
         result *= rhs;
         return result;
@@ -139,6 +140,18 @@ public:
         while (a.size() > 0 && a.back() == 0)
             a.pop_back();
         return *this;
+    }
+
+    // Modulo
+    const int64_t operator % (const int64_t rhs) const
+    {
+        int64_t carry = 0;
+        for (int32_t i=a.size() - 1; i>=0; --i)
+        {
+            int64_t value = ((int64_t)carry) * BASE + a[i];
+            carry = value % rhs;
+        }
+        return carry;
     }
 
     friend std::ostream& operator<< (std::ostream& stream, const bigint_t& n) 

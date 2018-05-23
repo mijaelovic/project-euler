@@ -18,7 +18,7 @@ private:
     size_t SQRT;
     std::vector<int64_t> M;
 
-    int64_t calculate(int64_t n, std::map<int64_t, int64_t>& cache)
+    int64_t calculate(int64_t n, std::map<int64_t, int64_t>& cache) const
     {
         if (n <= SQRT)
             return M[n];
@@ -55,7 +55,7 @@ public:
             M[i] = M[i-1] + miu[i];
     }
 
-    int64_t operator[](int64_t idx)
+    int64_t operator[](int64_t idx) const
     {
         std::map<int64_t, int64_t> cache;
         return calculate(idx, cache);       
