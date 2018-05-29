@@ -1,3 +1,5 @@
+#pragma once
+
 uint32_t icbrt(uint64_t x) {
   int32_t s;
   uint32_t y;
