@@ -12,6 +12,10 @@ private:
 
     uint64_t phi(uint64_t x, size_t a, std::map<std::pair<uint64_t, size_t>, uint64_t>& cache)
     {
+        if (a == 0)
+        {
+            return x;
+        }
         if (a == 1)
         {
             return (x + 1) / 2;
@@ -67,7 +71,7 @@ public:
                 m_prime.push_back(i);
     }
 
-    uint64_t pi(uint64_t x)
+    uint64_t operator()(uint64_t x)
     {
         std::map<uint64_t, uint64_t> pi_cache;
         std::map<std::pair<uint64_t, size_t>, uint64_t> phi_cache;
