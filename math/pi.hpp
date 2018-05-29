@@ -4,6 +4,7 @@
 #include<vector>
 #include<map>
 #include"eratosthenes.hpp"
+#include"icbrt.hpp"
 
 class Lehmer {
 private:
@@ -42,7 +43,7 @@ private:
         }
         uint64_t a = pi(std::pow(x, 1./4.), pi_cache, phi_cache);
         uint64_t b = pi(std::pow(x, 1./2.), pi_cache, phi_cache);
-        uint64_t c = pi(std::pow(x, 1./3.), pi_cache, phi_cache);
+        uint64_t c = pi(icbrt(x), pi_cache, phi_cache);
 
         uint64_t result = phi(x, a, phi_cache) +  ((b + a - 2) * (b - a + 1)) / 2;
         for (uint64_t i=a+1; i<=b; ++i)
