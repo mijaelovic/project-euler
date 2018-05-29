@@ -44,11 +44,13 @@ private:
         for (uint64_t i=a+1; i<=b; ++i)
         {
             uint64_t w = x / m_prime[i - 1];
-            uint64_t bi = pi(std::pow(w, 1./2.), pi_cache, phi_cache);
             result -= pi(w, pi_cache, phi_cache);
             if (i <= c)
+            {
+                uint64_t bi = pi(std::pow(w, 1./2.), pi_cache, phi_cache);
                 for (uint64_t j=i; j<=bi; ++j)
                     result -= pi(w / m_prime[j - 1], pi_cache, phi_cache) - j + 1;
+            }
         }
         pi_cache[x] = result;
         return result;
